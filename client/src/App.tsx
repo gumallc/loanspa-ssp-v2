@@ -8,6 +8,7 @@ import Dashboard from "@/pages/Dashboard";
 import Profile from "@/pages/Profile";
 import Rewards from "@/pages/Rewards";
 import Faq from "@/pages/Faq";
+import Support from "@/pages/Support";
 import LoanDetails from "@/pages/LoanDetails";
 import PaydownPayment from "@/pages/PaydownPayment";
 import PayoffPayment from "@/pages/PayoffPayment";
@@ -22,60 +23,101 @@ import { AuthProvider } from "@/hooks/use-auth";
 
 function Router() {
   const [location] = useLocation();
-  
+
   // Check if current route is a payment page, which already includes a layout
-  const isPaymentPage = location.includes('/paydown') || location.includes('/payoff') || 
-                        location.includes('/reschedule') || location.includes('/defer') || 
-                        location.includes('/payments');
-  
+  const isPaymentPage =
+    location.includes("/paydown") ||
+    location.includes("/payoff") ||
+    location.includes("/reschedule") ||
+    location.includes("/defer") ||
+    location.includes("/payments");
+
   return (
     <>
       {isPaymentPage ? (
         <Switch>
-          <ProtectedRoute path="/loans/:id/paydown" component={PaydownPayment} />
+          <ProtectedRoute
+            path="/loans/:id/paydown"
+            component={PaydownPayment}
+          />
           <ProtectedRoute path="/loans/:id/payoff" component={PayoffPayment} />
-          <ProtectedRoute path="/loans/:id/reschedule" component={ReschedulePayment} />
+          <ProtectedRoute
+            path="/loans/:id/reschedule"
+            component={ReschedulePayment}
+          />
           <ProtectedRoute path="/loans/:id/defer" component={DeferPayment} />
-          <ProtectedRoute path="/loans/:id/payments" component={PaymentHistory} />
+          <ProtectedRoute
+            path="/loans/:id/payments"
+            component={PaymentHistory}
+          />
         </Switch>
       ) : (
         <Switch>
           <Route path="/auth" component={AuthPage} />
-          <ProtectedRoute path="/" component={() => (
-            <Layout>
-              <Dashboard />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/profile" component={() => (
-            <Layout>
-              <Profile />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/rewards" component={() => (
-            <Layout>
-              <Rewards />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/faq" component={() => (
-            <Layout>
-              <Faq />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/make-payment" component={() => (
-            <Layout>
-              <MakePayment />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/request-funds" component={() => (
-            <Layout>
-              <RequestFunds />
-            </Layout>
-          )} />
-          <ProtectedRoute path="/loans/:id" component={() => (
-            <Layout>
-              <LoanDetails />
-            </Layout>
-          )} />
+          <ProtectedRoute
+            path="/"
+            component={() => (
+              <Layout>
+                <Dashboard />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/profile"
+            component={() => (
+              <Layout>
+                <Profile />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/rewards"
+            component={() => (
+              <Layout>
+                <Rewards />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/faq"
+            component={() => (
+              <Layout>
+                <Faq />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/support"
+            component={() => (
+              <Layout>
+                <Support />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/make-payment"
+            component={() => (
+              <Layout>
+                <MakePayment />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/request-funds"
+            component={() => (
+              <Layout>
+                <RequestFunds />
+              </Layout>
+            )}
+          />
+          <ProtectedRoute
+            path="/loans/:id"
+            component={() => (
+              <Layout>
+                <LoanDetails />
+              </Layout>
+            )}
+          />
           <Route component={NotFound} />
         </Switch>
       )}
